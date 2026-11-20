@@ -1,0 +1,471 @@
+/* --------------------------------------------------------------
+   Custom stylesheet — Laboratory Work 9
+   Typography: Merriweather
+   Colours: seaside sunset palette sampled from assets/img/custom-img.png
+   -------------------------------------------------------------- */
+
+/* Import the Merriweather web font */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap');
+
+/* Seaside sunset palette (colours picked from assets/img/custom-img.png) */
+:root {
+  --sunset-pink: #c25884;      /* pink sky */
+  --sunset-magenta: #b9447a;   /* magenta sky */
+  --sky-purple: #5a58a9;       /* lavender-purple sky */
+  --seafoam-lavender: #e5adf8; /* lavender seafoam */
+  --sun-yellow: #ffeda3;       /* pale yellow sun */
+  --sun-glow: #ffe5b6;         /* sun glow */
+  --wet-sand: #1a132a;         /* dark wet sand */
+  --wet-sand-deep: #0c0814;    /* deeper wet sand */
+}
+
+/* --- Body: default text font --- */
+body {
+  font-family: "Merriweather", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji", sans-serif;
+  color: var(--seafoam-lavender);
+  background-color: var(--wet-sand);
+}
+
+/* --- Headings: visually distinct from the original template --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+h1 {
+  font-size: 2.75rem;
+  color: var(--sun-yellow);
+}
+
+h2 {
+  font-size: 2.25rem;
+  color: var(--sunset-pink);
+}
+
+h3 {
+  font-size: 1.75rem;
+  color: var(--sky-purple);
+}
+
+h4 {
+  font-size: 1.375rem;
+  color: var(--sunset-magenta);
+}
+
+h5 {
+  font-size: 1.125rem;
+  color: var(--seafoam-lavender);
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: italic;
+  color: #b269a1;
+}
+
+/* --- Paragraphs: visually distinct from the original template --- */
+p {
+  font-family: "Merriweather", serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--sun-glow);
+  line-height: 1.8;
+  margin-bottom: 1.6rem;
+}
+
+/*--------------------------------------------------------------
+# Laboratory Work 9: Section spacing — About, Resume, Portfolio
+--------------------------------------------------------------*/
+
+/* --- 4a. About section: spacing on container and content blocks --- */
+#about.section {
+  padding: 90px 0;
+}
+#about .content {
+  margin-top: 2rem;
+  padding: 2rem;
+}
+#about .content h2 {
+  margin-bottom: 1rem;
+}
+#about .content p.py-3,
+#about .content p {
+  padding: 0;
+  margin-bottom: 1.2rem;
+}
+
+/* --- 4b. Resume section: spacing on items, titles, and container --- */
+#resume.section {
+  padding: 100px 0;
+}
+.resume .resume-title {
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.resume .resume-item {
+  padding: 1.5rem 0 1.5rem 2.5rem;
+  margin-top: 0;
+  border-left: 4px solid transparent;
+}
+.resume .resume-item h4 {
+  margin-bottom: 0.5rem;
+}
+.resume .resume-item h5 {
+  margin-bottom: 0.75rem;
+}
+
+/* --- 4c. Portfolio section: spacing on items, content, filters, container --- */
+#portfolio.section {
+  padding: 110px 0 0 0;
+}
+.portfolio .portfolio-filters {
+  margin: 0 auto 2.5rem auto;
+}
+.portfolio .portfolio-filters li {
+  margin: 0 0.75rem 1rem 0.75rem;
+}
+.portfolio-item {
+  margin-bottom: 2rem;
+}
+.portfolio .portfolio-content {
+  padding: 1rem;
+}
+
+/* --- 4d. Content blocks: borders, border-radius, box-shadows --- */
+#about .content {
+  border: 1px solid rgba(194, 88, 132, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(12, 8, 20, 0.55);
+}
+.resume .resume-item {
+  border: 1px solid rgba(185, 68, 122, 0.35);
+  border-left: 4px solid var(--sunset-magenta);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(12, 8, 20, 0.45);
+}
+.portfolio-item {
+  border: 1px solid rgba(90, 88, 169, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(12, 8, 20, 0.5);
+}
+.portfolio .portfolio-content {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(12, 8, 20, 0.35);
+}
+.portfolio .portfolio-content .portfolio-info {
+  border-radius: 12px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.35);
+}
+
+/*--------------------------------------------------------------
+# Footer — seaside sunset theme (Task 5a)
+--------------------------------------------------------------*/
+.footer {
+  color: var(--seafoam-lavender);
+  background: linear-gradient(
+    180deg,
+    var(--wet-sand-deep) 0%,
+    var(--wet-sand) 55%,
+    var(--sky-purple) 100%
+  );
+  font-size: 16px;
+  text-align: center;
+  padding: 56px 0 34px;
+  position: relative;
+  border-top: 4px solid var(--sunset-pink);
+  box-shadow: 0 -6px 24px rgba(12, 8, 20, 0.7);
+}
+
+.footer h3 {
+  color: var(--sun-yellow);
+  font-weight: 700;
+  position: relative;
+  padding: 0;
+  margin: 0 0 18px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 8px rgba(185, 68, 122, 0.5);
+}
+
+.footer p {
+  font-style: normal;
+  color: var(--sun-glow);
+  padding: 0;
+  margin: 0 0 28px 0;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer .social-links {
+  margin: 0 0 30px 0;
+}
+
+.footer .social-links a {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sunset-magenta);
+  color: var(--sun-glow);
+  line-height: 1;
+  margin: 0 6px;
+  border-radius: 14px;
+  text-align: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--seafoam-lavender);
+  box-shadow: 0 4px 14px rgba(185, 68, 122, 0.45);
+  transition: all 0.3s;
+}
+
+.footer .social-links a:hover {
+  background: var(--sun-yellow);
+  color: var(--wet-sand-deep);
+  border-color: var(--sun-yellow);
+  text-decoration: none;
+  transform: translateY(-3px);
+}
+
+.footer .copyright {
+  padding-top: 30px;
+  border-top: 1px solid color-mix(in srgb, var(--seafoam-lavender), transparent 70%);
+  color: var(--sky-purple);
+}
+
+.footer .credits {
+  font-size: 13px;
+  padding-top: 8px;
+  color: var(--sky-purple);
+}
+
+/*--------------------------------------------------------------
+# Scroll Top Button — seaside sunset theme (Task 5b)
+--------------------------------------------------------------*/
+#scroll-top,
+.scroll-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 24px;
+  bottom: 24px;
+  z-index: 99999;
+  background: linear-gradient(135deg, var(--sunset-pink), var(--sunset-magenta));
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 2px solid var(--seafoam-lavender);
+  box-shadow: 0 6px 18px rgba(194, 88, 132, 0.55);
+  color: var(--sun-glow);
+  transition: all 0.4s;
+}
+
+#scroll-top i,
+.scroll-top i {
+  font-size: 26px;
+  color: var(--sun-glow);
+  line-height: 0;
+}
+
+#scroll-top:hover,
+.scroll-top:hover {
+  background: linear-gradient(135deg, var(--sunset-magenta), var(--sky-purple));
+  color: var(--sun-glow);
+  box-shadow: 0 8px 24px rgba(185, 68, 122, 0.65);
+  transform: translateY(-3px) scale(1.05);
+}
+
+#scroll-top.active,
+.scroll-top.active {
+  visibility: visible;
+  opacity: 1;
+  bottom: 24px;
+}
+
+/* --- Buttons: visually distinct from the original template
+   (original uses accent green #18d26e with border-radius 50px) --- */
+button,
+input[type="submit"] {
+  display: inline-block;
+  background-color: var(--sunset-pink);
+  color: var(--wet-sand-deep);
+  font-family: "Merriweather", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.85rem 1.75rem;
+  border-radius: 10px;
+  border: 2px solid var(--sunset-magenta);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+  transition: background-color 0.25s ease, color 0.25s ease,
+    transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background-color: var(--sunset-magenta);
+  color: var(--sun-glow);
+  transform: scale(1.05);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+button:active,
+input[type="submit"]:active {
+  background-color: var(--sky-purple);
+  color: var(--sun-yellow);
+  transform: scale(0.96);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* --- Links: visually distinct from the original template
+   (original uses accent green #18d26e) --- */
+a {
+  color: var(--sun-yellow);
+  text-decoration: none;
+  transition: color 0.25s ease, text-decoration 0.25s ease;
+}
+
+a:hover {
+  color: var(--seafoam-lavender);
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #b269a1;
+}
+
+/*--------------------------------------------------------------
+# Laboratory Work 9: Task 8 — Services lists & table styles
+   Seaside sunset palette
+--------------------------------------------------------------*/
+
+/* --- 8.1a. Unordered list: custom coloured bullet markers --- */
+.services-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.services-list li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin-bottom: 0.85rem;
+  color: var(--seafoam-lavender);
+}
+.services-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 10px;
+  height: 10px;
+  background-color: var(--sunset-pink);
+  border-radius: 50%;
+}
+
+/* --- 8.1b. Ordered list: numbered stages via counter + pseudo-element --- */
+.services-stages {
+  list-style: none;
+  counter-reset: stages;
+  padding-left: 0;
+  margin: 0;
+}
+.services-stages li {
+  counter-increment: stages;
+  position: relative;
+  padding-left: 3rem;
+  margin-bottom: 1rem;
+  color: var(--seafoam-lavender);
+}
+.services-stages li::before {
+  content: counter(stages);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  background: var(--sky-purple);
+  color: var(--wet-sand-deep);
+  font-weight: 700;
+  font-size: 1.15rem;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2.4rem;
+}
+
+/* --- 8.1c. Nested list: visually distinct marker, indent, colour, border-left --- */
+.services-list li > ul {
+  list-style: none;
+  counter-reset: none;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  padding-left: 1.6rem;
+  border-left: 3px solid var(--seafoam-lavender);
+}
+.services-list li > ul li {
+  padding-left: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--sun-glow);
+}
+.services-list li > ul li::before {
+  content: "";
+  position: absolute;
+  left: -0.25rem; /* sits just inside the left border */
+  top: 0.55rem;
+  width: 8px;
+  height: 8px;
+  background-color: var(--sun-yellow);
+  border-radius: 25%; /* squircle/square-ish marker, different from the round main marker */
+}
+
+/* --- 8.2a. Table: consistent cell padding and centre-aligned content --- */
+.services-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.services-table th,
+.services-table td {
+  padding: 1rem 1.25rem;
+  text-align: center;
+  border: 1px solid rgba(229, 173, 248, 0.45);
+  color: var(--seafoam-lavender);
+}
+
+/* --- 8.2b. Table header: distinct background, colour, border, text-transform --- */
+.services-table thead th {
+  background-color: var(--sunset-pink);
+  color: var(--wet-sand-deep);
+  border: 1px solid var(--sunset-magenta);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* --- 8.2c. Table body: zebra striping + hover effect --- */
+.services-table tbody tr:nth-child(even) {
+  background-color: rgba(229, 173, 248, 0.18);
+}
+.services-table tbody tr:nth-child(odd) {
+  background-color: rgba(255, 229, 182, 0.1);
+}
+.services-table tbody tr:hover {
+  background-color: rgba(255, 237, 163, 0.35);
+  transition: background-color 0.25s ease;
+}
