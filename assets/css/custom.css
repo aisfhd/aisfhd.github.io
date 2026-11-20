@@ -19,6 +19,14 @@
   --wet-sand-deep: #0c0814;    /* deeper wet sand */
 }
 
+/* Override the template's green accent variables so all green elements
+   switch to the seaside sunset palette (custom.css loads after main.css) */
+:root {
+  --accent-color: var(--sunset-pink);        /* was #18d26e green */
+  --nav-hover-color: var(--sunset-magenta);  /* was #18d26e green */
+  --nav-dropdown-hover-color: var(--sunset-pink); /* was #18d26e green */
+}
+
 /* --- Body: default text font --- */
 body {
   font-family: "Merriweather", system-ui, -apple-system, "Segoe UI", Roboto,
@@ -296,7 +304,7 @@ p {
 }
 
 /* --- Buttons: visually distinct from the original template
-   (original uses accent green #18d26e with border-radius 50px) --- */
+   (original used accent green #18d26e with border-radius 50px; now uses sunset palette) --- */
 button,
 input[type="submit"] {
   display: inline-block;
@@ -333,7 +341,7 @@ input[type="submit"]:active {
 }
 
 /* --- Links: visually distinct from the original template
-   (original uses accent green #18d26e) --- */
+   (original used accent green #18d26e; now uses sunset palette) --- */
 a {
   color: var(--sun-yellow);
   text-decoration: none;
