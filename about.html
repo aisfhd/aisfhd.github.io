@@ -55,6 +55,7 @@
           <li><a href="resume.html">Resume</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html#skill-progress">Skill Progress</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -121,6 +122,11 @@
             <p class="py-3">
               My work centers on backend systems — designing and implementing RESTful APIs, data models, authentication, and background services that power modern applications. I combine deep backend expertise with fullstack understanding, so I can collaborate effectively with frontend teams, design sensible API contracts, and ensure the server and client integrate cleanly. I prioritize reliability, performance, and maintainability in every system I build.
             </p>
+
+            <!-- Complementary Task 2: animated CSS shapes -->
+            <div class="css-shape circle" style="top: 10%; left: 10%; width: 120px; height: 120px; animation-duration: 7s;"></div>
+            <div class="css-shape triangle" style="top: 55%; right: 12%; width: 0; height: 0; animation-duration: 9s; animation-delay: 1s;"></div>
+
           </div>
         </div>
 
@@ -196,6 +202,93 @@
       </div>
 
     </section><!-- /Skills Section -->
+
+    <!-- Skill Progress Module (Laboratory Work 10) -->
+    <section id="skill-progress" class="skill-progress section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Skill Progress</h2>
+        <div><span>My</span> <span class="description-title">Skill Kanban</span></div>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- XP / Level / Rank statistics -->
+        <div class="row gy-3 skill-stats mb-4">
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Total XP</span>
+              <span class="stat-value" id="stat-total-xp">0</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Level</span>
+              <span class="stat-value" id="stat-level">1</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Rank</span>
+              <span class="stat-value" id="stat-rank">Beginner</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience points progress bar -->
+        <div class="progress-bar-section mb-4">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="progress-label">Progress to next level</span>
+            <span class="progress-value" id="progress-text">0%</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progress-bar"></div>
+          </div>
+          <p class="small text-muted mt-1" id="progress-hint"></p>
+        </div>
+
+        <!-- Skill completion statistics -->
+        <div class="row gy-3 skill-stats mb-4">
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Total Skills</span>
+              <span class="stat-value" id="stat-total-skills">0</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Completed Skills</span>
+              <span class="stat-value" id="stat-completed-skills">0</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Completion %</span>
+              <span class="stat-value" id="stat-completion-pct">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kanban board -->
+        <div class="kanban-board">
+          <div class="kanban-column" data-category="planned">
+            <div class="kanban-column-header">Planned</div>
+            <div class="kanban-column-cards" id="column-planned"></div>
+          </div>
+          <div class="kanban-column" data-category="in-progress">
+            <div class="kanban-column-header">In Progress</div>
+            <div class="kanban-column-cards" id="column-in-progress"></div>
+          </div>
+          <div class="kanban-column" data-category="completed">
+            <div class="kanban-column-header">Completed</div>
+            <div class="kanban-column-cards" id="column-completed"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Skill Progress Section -->
 
   </main>
 

@@ -477,3 +477,248 @@ a:visited {
   background-color: rgba(255, 237, 163, 0.35);
   transition: background-color 0.25s ease;
 }
+
+/*--------------------------------------------------------------
+# Laboratory Work 10 — Skill Progress module (Skill Kanban)
+   Seaside sunset palette, Flexbox board layout
+--------------------------------------------------------------*/
+
+/* --- Section --- */
+.skill-progress.section {
+  padding: 90px 0;
+}
+.skill-progress .section-title h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* --- Stat cards --- */
+.skill-stats .stat-card {
+  background: var(--wet-sand-deep);
+  border: 1px solid rgba(229, 173, 248, 0.35);
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(12, 8, 20, 0.4);
+}
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--seafoam-lavender);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+.stat-value {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--sun-yellow);
+}
+
+/* --- Progress bar --- */
+.progress-bar-section {
+  background: var(--wet-sand-deep);
+  border: 1px solid rgba(229, 173, 248, 0.35);
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+}
+.progress-label {
+  font-size: 0.95rem;
+  color: var(--seafoam-lavender);
+}
+.progress-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--sun-yellow);
+}
+.progress {
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(229, 173, 248, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sunset-pink), var(--sunset-magenta));
+  border-radius: 7px;
+  width: 0;
+  transition: width 1s ease;
+}
+
+/* --- Kanban board (Flexbox) --- */
+.kanban-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.kanban-column {
+  flex: 1 1 220px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+}
+.kanban-column-header {
+  flex-shrink: 0;
+  padding: 0.75rem 1rem;
+  border-radius: 10px 10px 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+.kanban-column[data-category="planned"] .kanban-column-header {
+  background: var(--sky-purple);
+  color: var(--wet-sand-deep);
+}
+.kanban-column[data-category="in-progress"] .kanban-column-header {
+  background: var(--sunset-pink);
+  color: var(--wet-sand-deep);
+}
+.kanban-column[data-category="completed"] .kanban-column-header {
+  background: var(--seafoam-lavender);
+  color: var(--wet-sand-deep);
+}
+.kanban-column-cards {
+  flex: 1;
+  background: var(--wet-sand-deep);
+  border: 1px solid rgba(229, 173, 248, 0.35);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 1rem;
+  min-height: 260px;
+  overflow-y: auto;
+  box-shadow: 0 4px 16px rgba(12, 8, 20, 0.4);
+}
+
+/* --- Skill cards --- */
+.skill-card {
+  background: var(--wet-sand);
+  border: 1px solid rgba(229, 173, 248, 0.3);
+  border-radius: 10px;
+  padding: 0.9rem;
+  margin-bottom: 0.85rem;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.skill-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+.skill-card-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--sun-glow);
+  margin-bottom: 0.4rem;
+}
+.skill-card-status {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.skill-card-status.planned { background: var(--sky-purple); color: var(--wet-sand-deep); }
+.skill-card-status.in-progress { background: var(--sunset-pink); color: var(--wet-sand-deep); }
+.skill-card-status.completed { background: var(--seafoam-lavender); color: var(--wet-sand-deep); }
+.skill-card-xp {
+  font-size: 0.85rem;
+  color: var(--sun-yellow);
+  font-weight: 700;
+}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 768px) {
+  .kanban-column {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Complementary Task 1 — Services section animated gradient
+--------------------------------------------------------------*/
+#services.services.section {
+  position: relative;
+  overflow: hidden;
+}
+#services.services.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    var(--sunset-pink),
+    var(--sky-purple),
+    var(--sunset-magenta),
+    var(--wet-sand-deep)
+  );
+  background-size: 300% 300%;
+  animation: gradientMove 8s ease infinite;
+  opacity: 0.5;
+  z-index: 0;
+}
+#services.services.section > .container {
+  position: relative;
+  z-index: 1;
+}
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Complementary Task 2 — About section animated CSS shapes
+--------------------------------------------------------------*/
+#about .content {
+  position: relative;
+  z-index: 1;
+}
+.css-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.35;
+  animation: floatShape 6s ease-in-out infinite;
+}
+.css-shape.circle {
+  border-radius: 50%;
+  background: var(--sunset-pink);
+}
+.css-shape.triangle {
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  background: transparent;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 70px solid var(--sky-purple);
+}
+@keyframes floatShape {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(15px, -20px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-10px, 20px) rotate(240deg);
+  }
+}
