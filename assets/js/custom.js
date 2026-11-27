@@ -145,6 +145,14 @@
         clearError(fieldKey);
         return true;
 
+      case 'phone':
+        if (!isRequiredValid(value)) {
+          showError(fieldKey, 'Phone number is required.');
+          return false;
+        }
+        clearError(fieldKey);
+        return true;
+
       default:
         clearError(fieldKey);
         return true;
@@ -159,6 +167,7 @@
       firstName: validateField('firstName'),
       lastName: validateField('lastName'),
       email: validateField('email'),
+      phone: validateField('phone'),
       address: validateField('address'),
       rating1: validateField('rating1'),
       rating2: validateField('rating2'),
@@ -235,11 +244,11 @@
     const formatted = formatPhone('+' + cappedDigits);
     input.value = formatted;
 
-    // Real-time validation: phone is not a "required" field in this lab,
-    // but keep its error span clear / format-only. No invalid state enforced.
-    clearError('phone');
+    // Real-time validation: phone is a required field (matches HTML required
+    // attribute), so validate it and let it gate the submit button.
+    validateField('phone');
 
-    // Phone does not gate the submit button (per spec, required fields gate it).
+    // Phone gates the submit button together with the other required fields.
     validateAll();
   }
 
