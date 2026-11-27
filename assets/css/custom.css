@@ -842,3 +842,156 @@ a:visited {
     transform: translate(-10px, 20px) rotate(240deg);
   }
 }
+
+/*--------------------------------------------------------------
+# Laboratory Work 7-8 — Contact form styling
+   Seaside sunset palette — styling for the rebuilt lab Contact
+   form fields, validation states, result areas and buttons.
+--------------------------------------------------------------*/
+
+/* --- Field consistency: text/email/tel inputs match the existing
+   Contact form (spacing, padding, font, colour) so the rebuilt lab
+   fields look like one cohesive unit. --- */
+.contact-page #first-name,
+.contact-page #last-name,
+.contact-page #email,
+.contact-page #phone,
+.contact-page #address {
+  display: block;
+  width: 100%;
+  font-family: "Merriweather", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  color: var(--seafoam-lavender);
+  background-color: color-mix(in srgb, var(--wet-sand-deep), transparent 60%);
+  border: 1px solid color-mix(in srgb, var(--seafoam-lavender), transparent 70%);
+  border-radius: 10px;
+  box-shadow: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Rating radio inputs: keep consistent font/colour without forcing
+   block layout (they live inside .rating-group flex containers). */
+.contact-page #rating-1,
+.contact-page #rating-2,
+.contact-page #rating-3 {
+  font-family: "Merriweather", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  color: var(--seafoam-lavender);
+  accent-color: var(--sunset-pink);
+}
+
+/* Focus state mirroring main.css focus behaviour, sunset palette. */
+.contact-page #first-name:focus,
+.contact-page #last-name:focus,
+.contact-page #email:focus,
+.contact-page #phone:focus,
+.contact-page #address:focus,
+.contact-page #rating-1:focus,
+.contact-page #rating-2:focus,
+.contact-page #rating-3:focus {
+  border-color: var(--sunset-pink);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sunset-pink), transparent 75%);
+}
+
+/* --- Invalid input state --- */
+.contact-page .input-invalid {
+  border-color: var(--sunset-pink);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sunset-pink), transparent 80%);
+}
+
+/* --- Error message styling: red text, small font, below each field --- */
+.contact-page .field-error,
+.contact-page #error-first-name,
+.contact-page #error-last-name,
+.contact-page #error-email,
+.contact-page #error-phone,
+.contact-page #error-address,
+.contact-page #error-rating-1,
+.contact-page #error-rating-2,
+.contact-page #error-rating-3 {
+  color: var(--sunset-pink);
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  display: block;
+  line-height: 1.3;
+}
+
+/* --- Display areas: form-results and average-result --- */
+.contact-page #form-results,
+.contact-page #average-result {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--seafoam-lavender), transparent 60%);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--wet-sand-deep), transparent 40%);
+  color: var(--seafoam-lavender);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* --- Buttons: submit-btn & clear-btn consistent with template style --- */
+.contact-page #submit-btn,
+.contact-page #clear-btn {
+  font-family: "Merriweather", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.85rem 1.75rem;
+  border-radius: 10px;
+  border: 2px solid var(--sunset-magenta);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+  transition: background-color 0.25s ease, color 0.25s ease,
+    transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.contact-page #submit-btn {
+  background-color: var(--sunset-pink);
+  color: var(--wet-sand-deep);
+}
+
+.contact-page #submit-btn:hover:not(:disabled) {
+  background-color: var(--sunset-magenta);
+  color: var(--sun-glow);
+  transform: scale(1.05);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+.contact-page #clear-btn {
+  background-color: var(--seafoam-lavender);
+  color: var(--wet-sand-deep);
+}
+
+.contact-page #clear-btn:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--seafoam-lavender), transparent 15%);
+  color: var(--wet-sand-deep);
+  transform: scale(1.05);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* --- Disabled submit button: visually distinct --- */
+.contact-page #submit-btn:disabled,
+.contact-page #clear-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: saturate(0.6);
+  transform: none;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Responsive: keep result areas compact on narrow screens. */
+@media (max-width: 575px) {
+  .contact-page #form-results,
+  .contact-page #average-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
