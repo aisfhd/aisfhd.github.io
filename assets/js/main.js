@@ -239,17 +239,32 @@
     const nextIndex = levelTable.indexOf(levelEntry) + 1;
     const nextEntry = levelTable[nextIndex];
 
+    // Count per category for column headers
+    const counts = {
+      planned: skills.filter(s => s.status === 'planned').length,
+      'in-progress': skills.filter(s => s.status === 'in-progress').length,
+      completed: skills.filter(s => s.status === 'completed').length
+    };
+
+    document.getElementById('count-planned').textContent = counts.planned;
+    document.getElementById('count-in-progress').textContent = counts['in-progress'];
+    document.getElementById('count-completed').textContent = counts.completed;
+
+    // Create skill cards: status badge + name + XP
     skills.forEach(skill => {
       const col = document.getElementById('column-' + skill.status);
       const card = document.createElement('div');
       card.className = 'skill-card';
       card.innerHTML =
-        '<div class="skill-card-name">' + skill.name + '</div>' +
         '<div class="skill-card-status">' + statusLabel[skill.status] + '</div>' +
-        '<div class="skill-card-xp">XP <span>' + skill.xp + '</span></div>';
+        '<div class="skill-card-info">' +
+        '<div class="skill-card-name">' + skill.name + '</div>' +
+        '<div class="skill-card-xp">+' + skill.xp + ' XP</div>' +
+        '</div>';
       col.appendChild(card);
     });
 
+    // Update top stats
     document.getElementById('stat-total-xp').textContent = totalXP;
     document.getElementById('stat-level').textContent = levelEntry.level;
     document.getElementById('stat-rank').textContent = levelEntry.rank;
@@ -258,20 +273,24 @@
     document.getElementById('stat-completion-pct').textContent =
       Math.round((completedCount / skills.length) * 100) + '%';
 
+    // Progress bar with current / target XP
     const bar = document.getElementById('progress-bar');
     const text = document.getElementById('progress-text');
-    const hint = document.getElementById('progress-hint');
+    const current = document.getElementById('progress-current');
+    const target = document.getElementById('progress-target');
     let pct;
     if (nextEntry) {
       const range = nextEntry.min - levelEntry.min;
       const progress = totalXP - levelEntry.min;
       pct = Math.min(100, Math.max(0, (progress / range) * 100));
       text.textContent = Math.round(pct) + '%';
-      hint.textContent = totalXP + ' / ' + nextEntry.min + ' XP to ' + nextEntry.rank;
+      current.textContent = totalXP + ' XP';
+      target.textContent = '/ ' + nextEntry.min + ' XP';
     } else {
       pct = 100;
       text.textContent = '100%';
-      hint.textContent = 'Maximum level (' + levelEntry.rank + ') reached.';
+      current.textContent = totalXP + ' XP';
+      target.textContent = ' — max level reached';
     }
     bar.setAttribute('aria-valuenow', Math.round(pct));
 
