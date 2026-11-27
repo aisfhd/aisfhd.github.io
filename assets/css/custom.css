@@ -779,6 +779,41 @@ a:visited {
   font-weight: 700;
 }
 
+/* --- Skill card actions: status change dropdown (Lab 12) --- */
+.skill-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  min-width: 0;
+}
+.skill-card-actions label {
+  font-size: 0.7rem;
+  color: var(--sun-glow);
+  white-space: nowrap;
+}
+.skill-card-actions select {
+  font-size: 0.7rem;
+  padding: 0.18rem 0.5rem;
+  max-width: 105px;
+  min-width: 70px;
+  background: var(--wet-sand-deep);
+  color: var(--seafoam-lavender);
+  border: 1px solid rgba(229, 173, 248, 0.45);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.skill-card-actions select:focus {
+  outline: none;
+  border-color: var(--sunset-pink);
+}
+
+/* Prevent flex children from overflowing the card width. */
+.skill-card-status,
+.skill-card-info {
+  min-width: 0;
+}
+
 /* Responsive: stack columns on small screens */
 @media (max-width: 768px) {
   .kanban-column {
