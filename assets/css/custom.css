@@ -34,10 +34,18 @@
   transition: color 0.3s ease;
 }
 .index-page .navmenu a:hover,
+.index-page .navmenu li:hover > a,
 .index-page .navmenu .active,
 .index-page .navmenu .active:focus {
   color: var(--sun-yellow);
   transition: color 0.3s ease;
+}
+
+/* Index page: underline hover accent also sun-yellow (not sunset-magenta) */
+.index-page .navmenu > ul > li > a:hover:before,
+.index-page .navmenu li:hover > a:before,
+.index-page .navmenu .active:before {
+  background-color: var(--sun-yellow);
 }
 
 /* --- Body: default text font --- */
