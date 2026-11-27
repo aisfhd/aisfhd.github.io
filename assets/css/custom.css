@@ -671,7 +671,7 @@ a:visited {
 }
 .kanban-column {
   flex: 1;
-  max-width: 320px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
 }
@@ -787,7 +787,7 @@ a:visited {
   margin-left: auto;          /* pin actions to the right edge of the card */
   flex-shrink: 0;
   min-width: 0;
-  max-width: 38%;             /* keep actions block from overwhelming the card */
+  max-width: 45%;             /* give actions more room in wider columns */
   overflow: hidden;
 }
 .skill-card-actions label {
