@@ -27,15 +27,17 @@
   --nav-dropdown-hover-color: var(--sunset-pink); /* was #18d26e green */
 }
 
-/* Index page: navbar text pure white */
+/* Index page: navbar text pure white with smooth hover transition */
 .index-page .navmenu a,
 .index-page .navmenu a:focus {
   color: #ffffff;
+  transition: color 0.3s ease;
 }
 .index-page .navmenu a:hover,
 .index-page .navmenu .active,
 .index-page .navmenu .active:focus {
-  color: #ffffff;
+  color: var(--sun-yellow);
+  transition: color 0.3s ease;
 }
 
 /* --- Body: default text font --- */
