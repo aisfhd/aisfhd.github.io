@@ -782,12 +782,13 @@ a:visited {
 /* --- Skill card actions: status change dropdown (Lab 12) --- */
 .skill-card-actions {
   display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-left: auto;          /* pin actions to the right edge of the card */
+  flex-direction: column;   /* stack the select under the label */
+  align-items: flex-start;  /* left-align label and select */
+  gap: 0.25rem;
+  margin-left: auto;        /* pin actions block to the right edge of the card */
   flex-shrink: 0;
   min-width: 0;
-  max-width: 45%;             /* give actions more room in wider columns */
+  max-width: 45%;
   overflow: hidden;
 }
 .skill-card-actions label {
@@ -799,14 +800,15 @@ a:visited {
 .skill-card-actions select {
   font-size: 0.65rem;
   padding: 0.12rem 0.4rem;
-  max-width: 75px;
-  min-width: 55px;
+  max-width: 110px;         /* wider now that it is stacked under the label */
+  min-width: 70px;
   background: var(--wet-sand-deep);
   color: var(--seafoam-lavender);
   border: 1px solid rgba(229, 173, 248, 0.45);
   border-radius: 6px;
   cursor: pointer;
   flex-shrink: 0;
+  width: 100%;
 }
 .skill-card-actions select:focus {
   outline: none;
