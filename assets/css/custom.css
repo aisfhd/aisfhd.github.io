@@ -27,6 +27,17 @@
   --nav-dropdown-hover-color: var(--sunset-pink); /* was #18d26e green */
 }
 
+/* Index page: navbar text pure white */
+.index-page .navmenu a,
+.index-page .navmenu a:focus {
+  color: #ffffff;
+}
+.index-page .navmenu a:hover,
+.index-page .navmenu .active,
+.index-page .navmenu .active:focus {
+  color: #ffffff;
+}
+
 /* --- Body: default text font --- */
 body {
   font-family: "Merriweather", system-ui, -apple-system, "Segoe UI", Roboto,
