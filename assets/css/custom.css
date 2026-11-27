@@ -783,25 +783,30 @@ a:visited {
 .skill-card-actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  margin-left: auto;          /* pin actions to the right edge of the card */
   flex-shrink: 0;
   min-width: 0;
+  max-width: 38%;             /* keep actions block from overwhelming the card */
+  overflow: hidden;
 }
 .skill-card-actions label {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--sun-glow);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .skill-card-actions select {
-  font-size: 0.7rem;
-  padding: 0.18rem 0.5rem;
-  max-width: 105px;
-  min-width: 70px;
+  font-size: 0.65rem;
+  padding: 0.12rem 0.4rem;
+  max-width: 75px;
+  min-width: 55px;
   background: var(--wet-sand-deep);
   color: var(--seafoam-lavender);
   border: 1px solid rgba(229, 173, 248, 0.45);
   border-radius: 6px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 .skill-card-actions select:focus {
   outline: none;
@@ -809,9 +814,19 @@ a:visited {
 }
 
 /* Prevent flex children from overflowing the card width. */
+.skill-card,
 .skill-card-status,
-.skill-card-info {
+.skill-card-info,
+.skill-card-xp {
   min-width: 0;
+}
+.skill-card-info {
+  overflow: hidden;
+}
+.skill-card-xp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Responsive: stack columns on small screens */
