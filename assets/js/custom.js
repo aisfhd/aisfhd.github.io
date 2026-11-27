@@ -366,3 +366,248 @@
 
   init();
 })();
+
+/* ------------------------------------------------------------------
+ * User Competency Progress Module — Interactive functionality (Lab 12)
+ * All logic lives here (no inline handlers, no edits to main.js).
+ * ------------------------------------------------------------------ */
+(function() {
+  "use strict";
+
+  // ------------------------------------------------------------------
+  // Config & DOM references
+  // ------------------------------------------------------------------
+  const STORAGE_KEY = 'lw12_skill_progress';
+
+  // Initial skill states (used when no Local Storage data is available).
+  // Total XP across all skills >= 300 XP.
+  const INITIAL_SKILLS = [
+    { name: 'Python', status: 'completed', xp: 50 },
+    { name: 'Java', status: 'completed', xp: 45 },
+    { name: 'SQL', status: 'completed', xp: 40 },
+    { name: 'TypeScript', status: 'in-progress', xp: 35 },
+    { name: 'React', status: 'in-progress', xp: 30 },
+    { name: 'GraphQL', status: 'in-progress', xp: 25 },
+    { name: 'Cloud Architecture', status: 'planned', xp: 40 },
+    { name: 'Kubernetes', status: 'planned', xp: 35 }
+  ];
+
+  const STATUS_LABELS = {
+    planned: 'Planned',
+    'in-progress': 'In Progress',
+    completed: 'Completed'
+  };
+
+  // Level table per Laboratory Work 10.
+  const LEVEL_TABLE = [
+    { min: 0, max: 49, level: 1, rank: 'Beginner' },
+    { min: 50, max: 149, level: 2, rank: 'Trainee' },
+    { min: 150, max: 299, level: 3, rank: 'Specialist' },
+    { min: 300, max: Infinity, level: 4, rank: 'Professional' }
+  ];
+
+  const board = document.querySelector('#skill-progress');
+  if (!board) return;
+
+  const columns = {
+    planned: document.getElementById('column-planned'),
+    'in-progress': document.getElementById('column-in-progress'),
+    completed: document.getElementById('column-completed')
+  };
+  const counts = {
+    planned: document.getElementById('count-planned'),
+    'in-progress': document.getElementById('count-in-progress'),
+    completed: document.getElementById('count-completed')
+  };
+
+  // Top stats.
+  const statTotalXp = document.getElementById('stat-total-xp');
+  const statLevel = document.getElementById('stat-level');
+  const statRank = document.getElementById('stat-rank');
+
+  // Statistics.
+  const statTotalSkills = document.getElementById('stat-total-skills');
+  const statCompletedSkills = document.getElementById('stat-completed-skills');
+  const statCompletionPct = document.getElementById('stat-completion-pct');
+
+  // Progress bar.
+  const progressBar = document.getElementById('progress-bar');
+  const progressText = document.getElementById('progress-text');
+  const progressCurrent = document.getElementById('progress-current');
+  const progressTarget = document.getElementById('progress-target');
+
+  // Mutable skill data (restored from Local Storage or initial).
+  let skills = loadSkills();
+
+  // ------------------------------------------------------------------
+  // Local Storage helpers
+  // ------------------------------------------------------------------
+  function saveSkills() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(skills));
+    } catch (e) {
+      // Local Storage unavailable; silently ignore.
+    }
+  }
+
+  function loadSkills() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return INITIAL_SKILLS.map(s => Object.assign({}, s));
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed) || parsed.length === 0) return INITIAL_SKILLS.map(s => Object.assign({}, s));
+      // Validate each entry has required fields; fall back to initial if invalid.
+      const valid = parsed.every(s => s && typeof s.name === 'string' && typeof s.xp === 'number' && STATUS_LABELS[s.status] !== undefined);
+      return valid ? parsed : INITIAL_SKILLS.map(s => Object.assign({}, s));
+    } catch (e) {
+      return INITIAL_SKILLS.map(s => Object.assign({}, s));
+    }
+  }
+
+  // ------------------------------------------------------------------
+  // Function 1: Render skill cards into kanban columns
+  // ------------------------------------------------------------------
+  function renderSkillCards() {
+    // Clear existing cards in all columns.
+    Object.values(columns).forEach(col => { if (col) col.innerHTML = ''; });
+
+    skills.forEach(function(skill) {
+      const col = columns[skill.status];
+      if (!col) return;
+
+      const card = document.createElement('div');
+      card.className = 'skill-card';
+      card.dataset.name = skill.name;
+
+      // Status dropdown to change status to any of the three statuses.
+      const optionsHtml = Object.keys(STATUS_LABELS).map(function(key) {
+        const selected = key === skill.status ? ' selected' : '';
+        return '<option value="' + key + '"' + selected + '>' + STATUS_LABELS[key] + '</option>';
+      }).join('');
+
+      card.innerHTML =
+        '<div class="skill-card-status ' + skill.status + '">' + STATUS_LABELS[skill.status] + '</div>' +
+        '<div class="skill-card-info">' +
+        '<div class="skill-card-name">' + escapeHtml(skill.name) + '</div>' +
+        '<div class="skill-card-xp">+' + skill.xp + ' XP</div>' +
+        '</div>' +
+        '<div class="skill-card-actions">' +
+        '<label for="status-' + skill.name + '">Change status:</label>' +
+        '<select id="status-' + skill.name + '" class="status-select">' + optionsHtml + '</select>' +
+        '</div>';
+
+      // Wire up the status change (no page reload).
+      const select = card.querySelector('.status-select');
+      select.addEventListener('change', function() {
+        changeSkillStatus(skill.name, select.value);
+      });
+
+      col.appendChild(card);
+    });
+
+    updateColumnCounts();
+  }
+
+  // ------------------------------------------------------------------
+  // Change a skill's status and move the card automatically.
+  // ------------------------------------------------------------------
+  function changeSkillStatus(name, newStatus) {
+    const skill = skills.find(s => s.name === name);
+    if (!skill || skill.status === newStatus) return;
+
+    skill.status = newStatus;
+    saveSkills();           // Complementary Task: persist state.
+    renderSkillCards();     // Re-render moves card to correct category.
+    recalculateProgressInfo(); // Recalculate XP, level, rank, progress bar, stats.
+  }
+
+  // ------------------------------------------------------------------
+  // Update column header counts.
+  // ------------------------------------------------------------------
+  function updateColumnCounts() {
+    const tally = { planned: 0, 'in-progress': 0, completed: 0 };
+    skills.forEach(s => { tally[s.status]++; });
+    if (counts.planned) counts.planned.textContent = tally.planned;
+    if (counts['in-progress']) counts['in-progress'].textContent = tally['in-progress'];
+    if (counts.completed) counts.completed.textContent = tally.completed;
+  }
+
+  // ------------------------------------------------------------------
+  // Function 2: Recalculate XP, level, rank, progress bar & statistics
+  // ------------------------------------------------------------------
+  function recalculateProgressInfo() {
+    // Total XP only from Completed skills.
+    const totalXp = skills.reduce(function(sum, s) {
+      return s.status === 'completed' ? sum + s.xp : sum;
+    }, 0);
+
+    const completedCount = skills.filter(s => s.status === 'completed').length;
+    const totalCount = skills.length;
+
+    // Determine current level / rank.
+    let levelEntry = LEVEL_TABLE[0];
+    for (let i = 0; i < LEVEL_TABLE.length; i++) {
+      if (totalXp >= LEVEL_TABLE[i].min && totalXp <= LEVEL_TABLE[i].max) {
+        levelEntry = LEVEL_TABLE[i];
+      }
+    }
+
+    // Top stats.
+    if (statTotalXp) statTotalXp.textContent = totalXp;
+    if (statLevel) statLevel.textContent = levelEntry.level;
+    if (statRank) statRank.textContent = levelEntry.rank;
+
+    // Statistics.
+    if (statTotalSkills) statTotalSkills.textContent = totalCount;
+    if (statCompletedSkills) statCompletedSkills.textContent = completedCount;
+    if (statCompletionPct) {
+      const pct = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
+      statCompletionPct.textContent = pct + '%';
+    }
+
+    // Progress bar: from beginning of current level to threshold of next level.
+    // After reaching Level 4, display maximum progress.
+    let pct, currentLabel, targetLabel;
+    if (levelEntry.level >= 4) {
+      pct = 100;
+      currentLabel = totalXp + ' XP';
+      targetLabel = 'max level reached';
+    } else {
+      const nextEntry = LEVEL_TABLE[LEVEL_TABLE.indexOf(levelEntry) + 1];
+      const range = nextEntry.min - levelEntry.min;
+      const progress = totalXp - levelEntry.min;
+      pct = Math.min(100, Math.max(0, (progress / range) * 100));
+      currentLabel = totalXp + ' XP';
+      targetLabel = '/ ' + nextEntry.min + ' XP';
+    }
+
+    if (progressBar) {
+      progressBar.setAttribute('aria-valuenow', Math.round(pct));
+      progressBar.style.width = Math.round(pct) + '%';
+    }
+    if (progressText) progressText.textContent = Math.round(pct) + '%';
+    if (progressCurrent) progressCurrent.textContent = currentLabel;
+    if (progressTarget) progressTarget.textContent = targetLabel;
+  }
+
+  // ------------------------------------------------------------------
+  // Function 3: Escape HTML for safe insertion.
+  // ------------------------------------------------------------------
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // ------------------------------------------------------------------
+  // Initialize the interactive skill progress module.
+  // ------------------------------------------------------------------
+  function initSkillProgressInteractive() {
+    renderSkillCards();
+    recalculateProgressInfo();
+  }
+
+  // Run on window load, after main.js (which is loaded first). Rendering here
+  // clears the kanban columns first, so it replaces any cards main.js created.
+  window.addEventListener('load', initSkillProgressInteractive);
+})();
