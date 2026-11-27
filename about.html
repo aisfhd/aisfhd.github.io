@@ -26,6 +26,7 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/custom.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Personal
@@ -54,6 +55,7 @@
           <li><a href="resume.html">Resume</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html#skill-progress">Skill Progress</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -120,6 +122,11 @@
             <p class="py-3">
               My work centers on backend systems — designing and implementing RESTful APIs, data models, authentication, and background services that power modern applications. I combine deep backend expertise with fullstack understanding, so I can collaborate effectively with frontend teams, design sensible API contracts, and ensure the server and client integrate cleanly. I prioritize reliability, performance, and maintainability in every system I build.
             </p>
+
+            <!-- Complementary Task 2: animated CSS shapes -->
+            <div class="css-shape circle" style="top: 10%; left: 10%; width: 120px; height: 120px; animation-duration: 7s;"></div>
+            <div class="css-shape triangle" style="top: 55%; right: 12%; width: 0; height: 0; animation-duration: 9s; animation-delay: 1s;"></div>
+
           </div>
         </div>
 
@@ -195,6 +202,129 @@
       </div>
 
     </section><!-- /Skills Section -->
+
+    <!-- Skill Progress Module (Laboratory Work 10) -->
+    <section id="skill-progress" class="skill-progress section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- Module Header -->
+        <div class="module-header mb-4">
+          <div class="module-icon"><i class="bi bi-pie-chart"></i></div>
+          <div class="module-info">
+            <h2>User Competency Progress Module</h2>
+            <p class="module-subtitle">Track your web development skills, earn XP, and level up your competency.</p>
+          </div>
+        </div>
+
+        <!-- Top Stats Row -->
+        <div class="row gy-3 top-stats mb-4">
+          <div class="col-md-3">
+            <div class="stat-card student-card">
+              <div class="stat-icon"><i class="bi bi-person"></i></div>
+              <span class="stat-label">Student</span>
+              <span class="stat-value">Web Development</span>
+              <span class="stat-badge">Skill Progress</span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card xp-card">
+              <div class="stat-icon"><i class="bi bi-database"></i></div>
+              <span class="stat-label">Total XP</span>
+              <span class="stat-value" id="stat-total-xp">0</span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card level-card">
+              <div class="stat-icon"><i class="bi bi-star"></i></div>
+              <span class="stat-label">Level</span>
+              <span class="stat-value" id="stat-level">1</span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card rank-card">
+              <div class="stat-icon"><i class="bi bi-trophy"></i></div>
+              <span class="stat-label">Rank</span>
+              <span class="stat-value" id="stat-rank">Beginner</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section mb-4">
+          <div class="d-flex justify-content-between mb-2">
+            <span class="progress-label">Progress to Next Level</span>
+            <span class="progress-value" id="progress-text">0%</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progress-bar"></div>
+          </div>
+          <div class="progress-details d-flex justify-content-between mt-2">
+            <span class="progress-current" id="progress-current">0 XP</span>
+            <span class="progress-target" id="progress-target">/ 50 XP</span>
+          </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="statistics-section mb-4">
+          <h3 class="section-subtitle">Skill Statistics</h3>
+          <div class="row gy-3">
+            <div class="col-md-4">
+              <div class="stat-card stat-simple">
+                <span class="stat-label">Total Skills</span>
+                <span class="stat-value" id="stat-total-skills">0</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-card stat-simple">
+                <span class="stat-label">Completed Skills</span>
+                <span class="stat-value" id="stat-completed-skills">0</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-card stat-simple">
+                <span class="stat-label">Completion Rate</span>
+                <span class="stat-value" id="stat-completion-pct">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kanban Board -->
+        <div class="kanban-section">
+          <h3 class="section-subtitle">Skill Kanban Board</h3>
+          <p class="kanban-subtitle">Manage and track your web development skills by progress status.</p>
+          <div class="kanban-board">
+            <div class="kanban-column" data-category="planned">
+              <div class="kanban-column-header planned">
+                <span class="kanban-icon"><i class="bi bi-calendar"></i></span>
+                <span class="kanban-title">Planned</span>
+                <span class="kanban-count" id="count-planned">0</span>
+              </div>
+              <div class="kanban-column-cards" id="column-planned"></div>
+            </div>
+            <div class="kanban-column" data-category="in-progress">
+              <div class="kanban-column-header in-progress">
+                <span class="kanban-icon"><i class="bi bi-arrow-repeat"></i></span>
+                <span class="kanban-title">In Progress</span>
+                <span class="kanban-count" id="count-in-progress">0</span>
+              </div>
+              <div class="kanban-column-cards" id="column-in-progress"></div>
+            </div>
+            <div class="kanban-column" data-category="completed">
+              <div class="kanban-column-header completed">
+                <span class="kanban-icon"><i class="bi bi-check2-circle"></i></span>
+                <span class="kanban-title">Completed</span>
+                <span class="kanban-count" id="count-completed">0</span>
+              </div>
+              <div class="kanban-column-cards" id="column-completed"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Skill Progress Section -->
 
   </main>
 

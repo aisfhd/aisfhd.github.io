@@ -201,4 +201,108 @@
 
   });
 
+  /**
+   * Skill Progress module (Laboratory Work 10)
+   * Skill Kanban board with categories, XP, level/rank and progress bar.
+   */
+  function initSkillProgress() {
+    const board = document.querySelector('#skill-progress');
+    if (!board) return;
+
+    const skills = [
+      { name: 'Python', status: 'completed', xp: 50 },
+      { name: 'Java', status: 'completed', xp: 45 },
+      { name: 'SQL', status: 'completed', xp: 40 },
+      { name: 'TypeScript', status: 'in-progress', xp: 35 },
+      { name: 'React', status: 'in-progress', xp: 30 },
+      { name: 'GraphQL', status: 'in-progress', xp: 25 },
+      { name: 'Cloud Architecture', status: 'planned', xp: 40 },
+      { name: 'Kubernetes', status: 'planned', xp: 35 }
+    ];
+
+    const statusLabel = {
+      planned: 'Planned',
+      'in-progress': 'In Progress',
+      completed: 'Completed'
+    };
+
+    const levelTable = [
+      { min: 0, max: 49, level: 1, rank: 'Beginner' },
+      { min: 50, max: 149, level: 2, rank: 'Trainee' },
+      { min: 150, max: 299, level: 3, rank: 'Specialist' },
+      { min: 300, max: Infinity, level: 4, rank: 'Professional' }
+    ];
+
+    const totalXP = skills.reduce((sum, s) => sum + s.xp, 0);
+    const completedCount = skills.filter(s => s.status === 'completed').length;
+    const levelEntry = levelTable.find(l => totalXP >= l.min && totalXP <= l.max);
+    const nextIndex = levelTable.indexOf(levelEntry) + 1;
+    const nextEntry = levelTable[nextIndex];
+
+    // Count per category for column headers
+    const counts = {
+      planned: skills.filter(s => s.status === 'planned').length,
+      'in-progress': skills.filter(s => s.status === 'in-progress').length,
+      completed: skills.filter(s => s.status === 'completed').length
+    };
+
+    document.getElementById('count-planned').textContent = counts.planned;
+    document.getElementById('count-in-progress').textContent = counts['in-progress'];
+    document.getElementById('count-completed').textContent = counts.completed;
+
+    // Create skill cards: status badge + name + XP
+    skills.forEach(skill => {
+      const col = document.getElementById('column-' + skill.status);
+      const card = document.createElement('div');
+      card.className = 'skill-card';
+      card.innerHTML =
+        '<div class="skill-card-status">' + statusLabel[skill.status] + '</div>' +
+        '<div class="skill-card-info">' +
+        '<div class="skill-card-name">' + skill.name + '</div>' +
+        '<div class="skill-card-xp">+' + skill.xp + ' XP</div>' +
+        '</div>';
+      col.appendChild(card);
+    });
+
+    // Update top stats
+    document.getElementById('stat-total-xp').textContent = totalXP;
+    document.getElementById('stat-level').textContent = levelEntry.level;
+    document.getElementById('stat-rank').textContent = levelEntry.rank;
+    document.getElementById('stat-total-skills').textContent = skills.length;
+    document.getElementById('stat-completed-skills').textContent = completedCount;
+    document.getElementById('stat-completion-pct').textContent =
+      Math.round((completedCount / skills.length) * 100) + '%';
+
+    // Progress bar with current / target XP
+    const bar = document.getElementById('progress-bar');
+    const text = document.getElementById('progress-text');
+    const current = document.getElementById('progress-current');
+    const target = document.getElementById('progress-target');
+    let pct;
+    if (nextEntry) {
+      const range = nextEntry.min - levelEntry.min;
+      const progress = totalXP - levelEntry.min;
+      pct = Math.min(100, Math.max(0, (progress / range) * 100));
+      text.textContent = Math.round(pct) + '%';
+      current.textContent = totalXP + ' XP';
+      target.textContent = '/ ' + nextEntry.min + ' XP';
+    } else {
+      pct = 100;
+      text.textContent = '100%';
+      current.textContent = totalXP + ' XP';
+      target.textContent = ' — max level reached';
+    }
+    bar.setAttribute('aria-valuenow', Math.round(pct));
+
+    new Waypoint({
+      element: board,
+      offset: '80%',
+      handler: function() {
+        bar.style.width = Math.round(pct) + '%';
+      }
+    });
+  }
+
+  window.addEventListener('load', initSkillProgress);
+
 })();
