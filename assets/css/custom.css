@@ -41,7 +41,10 @@
   transition: color 0.3s ease;
 }
 
-/* Index page: underline hover accent also sun-yellow (not sunset-magenta) */
+/* Index page: slider underline always sun-yellow (base + hover + active) */
+.index-page .navmenu > ul > li > a:before {
+  background-color: var(--sun-yellow);
+}
 .index-page .navmenu > ul > li > a:hover:before,
 .index-page .navmenu li:hover > a:before,
 .index-page .navmenu .active:before {
