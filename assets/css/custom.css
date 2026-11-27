@@ -23,6 +23,7 @@
    switch to the seaside sunset palette (custom.css loads after main.css) */
 :root {
   --accent-color: var(--sunset-pink);        /* was #18d26e green */
+  --nav-color: var(--seafoam-lavender);      /* was #fafafa near-white — prevents white blink */
   --nav-hover-color: var(--sunset-magenta);  /* was #18d26e green */
   --nav-dropdown-hover-color: var(--sunset-pink); /* was #18d26e green */
 }
